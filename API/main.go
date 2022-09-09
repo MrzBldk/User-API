@@ -7,15 +7,21 @@ import (
 	"time"
 
 	"github.com/MrzBldk/User-API/api/routes"
+	_ "github.com/MrzBldk/User-API/docs"
 	"github.com/MrzBldk/User-API/pkg/user"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/swagger"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+// @title User API
+// @version 1.0
+// @description This is an API for user management
+// @host localhost:8080
 func main() {
 	err := godotenv.Load()
 	if err != nil {
@@ -38,6 +44,8 @@ func main() {
 	userService := user.NewService(userRepo)
 
 	app := fiber.New()
+
+	app.Get("/swagger/*", swagger.HandlerDefault)
 
 	app.Use(logger.New(logger.Config{
 		Output: logfile,

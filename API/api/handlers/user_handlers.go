@@ -11,6 +11,17 @@ import (
 
 var validate = validator.New()
 
+// AddUser is a function to add a user
+// @Summary Add user
+// @Description Add user
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param user body presenter.User true "User"
+// @Success 200
+// @Failure 400
+// @Failure 500
+// @Router /api/user [post]
 func AddUser(service user.Service) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		var requestBody entities.User
@@ -32,6 +43,17 @@ func AddUser(service user.Service) fiber.Handler {
 	}
 }
 
+// UpdateUser is a function to update a user
+// @Summary Update user
+// @Description Update user
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param user body presenter.User true "User"
+// @Success 204
+// @Failure 400
+// @Failure 500
+// @Router /api/user [put]
 func UpdateUser(service user.Service) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		var requestBody entities.User
@@ -52,6 +74,17 @@ func UpdateUser(service user.Service) fiber.Handler {
 	}
 }
 
+// RemoveUser is a function to remove a user by ID
+// @Summary Remove user by ID
+// @Description Remove user by ID
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param id path string true "User ID"
+// @Success 204
+// @Failure 404
+// @Failure 500
+// @Router /api/user/{id} [delete]
 func RemoveUser(service user.Service) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		userId := c.Params("id")
@@ -64,6 +97,17 @@ func RemoveUser(service user.Service) fiber.Handler {
 	}
 }
 
+// GetUser is a function to get a user by ID
+// @Summary Get user by ID
+// @Description Get user by ID
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param id path string true "User ID"
+// @Success 200
+// @Failure 404
+// @Failure 500
+// @Router /api/user/{id} [get]
 func GetUser(service user.Service) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		userId := c.Params("id")
@@ -80,6 +124,15 @@ func GetUser(service user.Service) fiber.Handler {
 	}
 }
 
+// GetUsers is a function to get all users data from database
+// @Summary Get all users
+// @Description Get all users
+// @Tags users
+// @Accept json
+// @Produce json
+// @Success 200
+// @Failure 500
+// @Router /api/user [get]
 func GetUsers(service user.Service) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		fetched, err := service.FetchUsers()
