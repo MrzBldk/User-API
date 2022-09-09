@@ -1,0 +1,49 @@
+<h1>User list</h1>
+<input type="button" value="Add" class="btn btn-primary ms-1" (click)="addUser()" />
+<table class="table table-default align-middle">
+  <thead>
+    <tr>
+      <td>Id</td>
+      <td>Name</td>
+      <td>Age</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <ng-template [ngTemplateOutlet]="loadTemplate(user)" [ngTemplateOutletContext]="{ $implicit: user}">
+      </ng-template>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #readOnlyTemplate let-user>
+  <td>{{user.id}}</td>
+  <td>{{user.name}}</td>
+  <td>{{user.age}}</td>
+  <td>
+    <input type="button" value="Edit" class="btn btn-outline-secondary" (click)="editUser(user)" />
+  </td>
+  <td>
+    <input type="button" value="Delete" (click)="deleteUser(user)" class="btn btn-danger" />
+  </td>
+</ng-template>
+
+<ng-template #editTemplate>
+  <td>
+    <input type="text" [(ngModel)]="editedUser!.id" readonly disabled class="form-control" />
+  </td>
+  <td>
+    <input type="text" [(ngModel)]="editedUser!.name" class="form-control" />
+  </td>
+  <td>
+    <input type="number" [(ngModel)]="editedUser!.age" class="form-control" />
+  </td>
+  <td>
+    <input type="button" value="Save" (click)="saveUser()" class="btn btn-success" />
+  </td>
+  <td>
+    <input type="button" value="Cancel" (click)="cancel()" class="btn btn-warning" />
+  </td>
+</ng-template>
