@@ -31,9 +31,11 @@ export class AppComponent implements OnInit {
   }
 
   addUser() {
-    this.editedUser = new User("", "", 0);
-    this.users.push(this.editedUser);
-    this.isNewRecord = true;
+    if (this.isNewRecord == false) {
+      this.editedUser = new User("", "", 0);
+      this.users.push(this.editedUser);
+      this.isNewRecord = true;
+    }
   }
 
   editUser(user: User) {
